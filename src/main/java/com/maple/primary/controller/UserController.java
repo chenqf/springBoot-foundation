@@ -27,6 +27,17 @@ public class UserController {
     return null;
   }
 
+  @GetMapping("/insert")
+  public UserDTO insert() {
+    UserDTO userDTO = new UserDTO();
+    userDTO.setUsername("chen");
+    userDTO.setName("qifeng");
+    userDTO.setPassword("123456");
+    userDTO.setStatus(0);
+    this.userService.insert(userDTO);
+    return userDTO;
+  }
+
   @GetMapping("/count")
   public Integer count() {
     return null;

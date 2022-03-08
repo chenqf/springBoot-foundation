@@ -13,4 +13,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
   UserDO getById(@Param("id") Long id);
+
+  UserDO getByUsername(@Param("username") String username);
+
+  void insert(UserDO userDO);
+
+  void update(UserDO userDO);
 }

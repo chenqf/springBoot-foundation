@@ -10,4 +10,16 @@ import com.maple.primary.dto.UserDTO;
  */
 public interface UserService {
   UserDTO getById(Long id);
+
+  UserDTO getByUsername(String username);
+
+  UserDTO checkLogin(String username, String password) throws Exception;
+
+  void changePassword(Long id, String oldPassword, String password) throws Exception;
+
+  Long insert(UserDTO userDTO);
+
+  void update(UserDTO userDTO);
+
+  void delete(Long id);
 }

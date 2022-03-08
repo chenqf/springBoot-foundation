@@ -21,6 +21,7 @@ public class UserDO {
   private Long id;
   private String username;
   private String name;
+  private String password;
   private String random;
   private Integer status;
   private Boolean deleted;
