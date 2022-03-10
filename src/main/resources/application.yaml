@@ -1,17 +1,17 @@
 server:
-  port: 8091
+  port: 8080
 spring:
+  application:
+    name: foundation # 在Spring Cloud应用中会被注册为服务名
   output:
     ansi:
       #      enabled: NEVER # 禁用ANSI
       enabled: detect # 是否支持ANSI，是的话多彩输出
-  application:
-    name: maple
   datasource:
     druid:
-      url: jdbc:mysql://39.106.44.72:81/foundation?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
-      username: root
-      password: cqf123456
+      url: jdbc:mysql://${DB_IP}:${DB_PORT}/foundation?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
       driver-class-name: com.mysql.cj.jdbc.Driver
       initial-size: 10
       max-active: 20
