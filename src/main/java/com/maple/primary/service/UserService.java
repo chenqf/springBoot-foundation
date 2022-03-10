@@ -1,25 +1,54 @@
 package com.maple.primary.service;
 
-import com.maple.primary.dto.UserDTO;
+import com.github.pagehelper.PageInfo;
+import com.maple.primary.base.dto.PageDTO;
+import com.maple.primary.entity.User;
 
 /**
+ * (User)表服务接口
+ *
  * @author qifeng.b.chen
- * @version 1.0
- * @date 2022/1/27-18:35
- * @since 1.8
+ * @since 2022-03-09 16:40:10
  */
 public interface UserService {
-  UserDTO getById(Long id);
 
-  UserDTO getByUsername(String username);
+  /**
+   * 通过搜索条件和分页信息查询数据
+   *
+   * @param pageDTO 分页数据
+   * @return 分页列表数据
+   */
+  PageInfo<User> queryPages(PageDTO pageDTO);
 
-  UserDTO checkLogin(String username, String password) throws Exception;
+  /**
+   * 通过ID查询单条数据
+   *
+   * @param id 主键
+   * @return 实例对象
+   */
+  User queryById(Long id);
 
-  void changePassword(Long id, String oldPassword, String password) throws Exception;
+  /**
+   * 新增数据
+   *
+   * @param user 实例对象
+   * @return 实例对象
+   */
+  User insert(User user);
 
-  Long insert(UserDTO userDTO);
+  /**
+   * 修改数据
+   *
+   * @param user 实例对象
+   * @return 实例对象
+   */
+  User update(User user);
 
-  void update(UserDTO userDTO);
-
-  void delete(Long id);
+  /**
+   * 通过主键删除数据
+   *
+   * @param id 主键
+   * @return 是否成功
+   */
+  boolean deleteById(Long id);
 }

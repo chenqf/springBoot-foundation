@@ -34,13 +34,18 @@ spring:
         login-username: admin
         login-password: admin
 mybatis:
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.maple.primary.entity # entity的位置
   configuration:
     map-underscore-to-camel-case: true # 驼峰映射到下划线
+    lazy-loading-enabled: true # 开启延时加载(用于分步查询,只有用到再查询)
+    aggressive-lazy-loading: false # 为true时,任何查询都会加载对象所有属性, 相当于不开始延时加载
 
 logging:
   level:
     root: info # 所有包，日志级别为 info
     com.maple.primary.mapper: debug # mybatis 日志为 debug 可输出sql
 
+pagehelper:
+  page-size-zero: true # pageSize=0 查出全部数据
+  reasonable: true # 如果 pageNum <= 0 会查询第一页，如果 pageNum > pages 会查询最后一页

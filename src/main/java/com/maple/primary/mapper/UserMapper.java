@@ -1,22 +1,65 @@
 package com.maple.primary.mapper;
 
-import com.maple.primary.entity.UserDO;
+import com.maple.primary.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
+ * (User)表数据库访问层
+ *
  * @author qifeng.b.chen
- * @version 1.0
- * @date 2022/1/26-17:59
- * @since 1.8
+ * @since 2022-03-09 16:45:42
  */
 @Mapper
 public interface UserMapper {
-  UserDO getById(@Param("id") Long id);
 
-  UserDO getByUsername(@Param("username") String username);
+  /**
+   * 通过ID查询单条数据
+   *
+   * @param id 主键
+   * @return 实例对象
+   */
+  User queryById(Long id);
 
-  void insert(UserDO userDO);
+  /**
+   * 通过检索数据查询多条数据
+   *
+   * @param user 查询条件
+   * @return 多条数据
+   */
+  List<User> queryList(User user);
 
-  void update(UserDO userDO);
+  /**
+   * 新增数据
+   *
+   * @param user 实例对象
+   * @return 影响行数
+   */
+  int insert(User user);
+
+  /**
+   * 批量新增数据（MyBatis原生foreach方法）
+   *
+   * @param entities List<User> 实例对象列表
+   * @return 影响行数
+   */
+  int insertBatch(@Param("entities") List<User> entities);
+
+  /**
+   * 修改数据
+   *
+   * @param user 实例对象
+   * @return 影响行数
+   */
+  int update(User user);
+
+  /**
+   * 通过主键删除数据
+   *
+   * @param id 主键
+   * @return 影响行数
+   */
+  int deleteById(Long id);
 }

@@ -1,60 +1,81 @@
 package com.maple.primary.controller;
 
-import com.maple.primary.dto.UserDTO;
-import com.maple.primary.entity.UserDO;
+import com.github.pagehelper.PageInfo;
+import com.maple.primary.base.dto.PageDTO;
+import com.maple.primary.entity.User;
 import com.maple.primary.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.annotation.Resource;
 
 /**
+ * (User)表控制层
+ *
  * @author qifeng.b.chen
- * @version 1.0
- * @date 2022/1/26-16:11
- * @since 1.8
+ * @since 2022-03-09 16:40:08
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
-  @Autowired private UserService userService;
+  /** 服务对象 */
+  @Resource private UserService userService;
 
-  @GetMapping("/list")
-  public List<UserDO> list() {
-    return null;
+  /**
+   * 通过搜索条件和分页信息查询数据
+   *
+   * @return 分页列表数据
+   */
+  @GetMapping
+  public PageInfo<User> queryPages(PageDTO pageDTO, User user) {
+    System.out.println("--------------------");
+    System.out.println(pageDTO);
+    System.out.println(user);
+    System.out.println("--------------------");
+    return this.userService.queryPages(pageDTO);
   }
 
-  @GetMapping("/insert")
-  public UserDTO insert() {
-    UserDTO userDTO = new UserDTO();
-    userDTO.setUsername("chen");
-    userDTO.setName("qifeng");
-    userDTO.setPassword("123456");
-    userDTO.setStatus(0);
-    this.userService.insert(userDTO);
-    return userDTO;
+  /**
+   * 通过主键查询单条数据
+   *
+   * @param id 主键
+   * @return 单条数据
+   */
+  @GetMapping("{id}")
+  public User queryById(@PathVariable("id") Long id) {
+    return this.userService.queryById(id);
   }
 
-  @GetMapping("/count")
-  public Integer count() {
-    return null;
+  /**
+   * 新增数据
+   *
+   * @param user 实体
+   * @return 新增结果
+   */
+  @PostMapping
+  public ResponseEntity<User> add(User user) {
+    return ResponseEntity.ok(this.userService.insert(user));
   }
 
-  @GetMapping("/get/{id}")
-  public UserDTO get(@PathVariable Long id) {
-    return this.userService.getById(id);
+  /**
+   * 编辑数据
+   *
+   * @param user 实体
+   * @return 编辑结果
+   */
+  @PutMapping
+  public ResponseEntity<User> edit(User user) {
+    return ResponseEntity.ok(this.userService.update(user));
   }
 
-  @GetMapping("/save")
-  public Integer save() {
-    return null;
-  }
-
-  @GetMapping("/update")
-  public Integer update() {
-    return null;
+  /**
+   * 删除数据
+   *
+   * @param id 主键
+   * @return 删除是否成功
+   */
+  @DeleteMapping
+  public ResponseEntity<Boolean> deleteById(Long id) {
+    return ResponseEntity.ok(this.userService.deleteById(id));
   }
 }
