@@ -49,3 +49,9 @@ logging:
 pagehelper:
   page-size-zero: true # pageSize=0 查出全部数据
   reasonable: true # 如果 pageNum <= 0 会查询第一页，如果 pageNum > pages 会查询最后一页
+
+# 加密: mvn jasypt:encrypt-value -Djasypt.encryptor.password="${jasypt.encryptor.password}" -Djasypt.plugin.value="明文"
+# 解密: mvn jasypt:decrypt-value -Djasypt.encryptor.password="${jasypt.encryptor.password}" -Djasypt.plugin.value="ENC(密文)"
+jasypt:
+  encryptor:
+    password: ${JASYPT_KEY}
